@@ -1,11 +1,12 @@
-#Compare emissions from motor vehicle sources in Baltimore City with emissions from motor vehicle sources in 
-#Los Angeles County, California (fips == "06037"). Which city has seen greater changes over time in motor vehicle emissions?
+# Compare emissions from motor vehicle sources in Baltimore City with those in Los Angeles County, California (fips == "06037")
+
 library(dplyr)
+
 SCC <- readRDS("Source_Classification_Code.rds")
 NEI <- readRDS("summarySCC_PM25.rds")
 
 extractTotals <- function(fipsIn) {
-  # extract the city's emissions for the relevant sources, grouped by year
+  # extract a city's emissions for the relevant sources, grouped by year
 
   sourceCodes <- SCC[grep("Motor", SCC$Short.Name),1:3]
   sourceCodes <- sourceCodes[grep("Highway Veh|Off-highway", sourceCodes$Short.Name),]
@@ -15,19 +16,15 @@ extractTotals <- function(fipsIn) {
 }
 
 calcChange <- function(fipsIn) {
-  # calculate the proportion of emission per year and the difference to the next year
+  # calculate the proportion of emissions per year, each relative to 1999
   
   # get all the data
   totals <- extractTotals(fipsIn)
   
-  #proportions <- (totals[,2]/sum(totals[,2]))[,1]
-
   propChange <- numeric()
   propChange[1] <- 0
   
-  #for (i in 1:length(proportions)-1) {
   for (i in 1:nrow(totals)-1) {
-    #propChange[i] <- abs(proportions[i] - proportions[i+1])
     propChange[i+1] <- (((totals[i+1,2] -  totals[1,2]) / totals[1,2]))[[1]]
   }
   
