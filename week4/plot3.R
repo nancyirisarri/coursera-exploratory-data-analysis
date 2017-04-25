@@ -10,7 +10,7 @@ totals$type <- as.factor(totals$type)
 
 p <- ggplot(totals, aes(x=year, y=total, color=type, group=type)) + geom_point() + geom_line() + facet_grid(. ~ type) +
   ggtitle("PM2.5 Emissions in Baltimore City by Type of Source") +
-  xlab("Year") + ylab("PM2.5 Emissions") + theme(legend.position="none") 
+  xlab("Year") + ylab("PM2.5 Emissions (tons)") + theme(legend.position="none") 
 p + theme(panel.spacing = unit(0.5, "lines"))
 
 ggsave("plot3.png", width = 7, height = 3.5)

@@ -7,7 +7,7 @@ totals <- NEI %>% filter(fips == "24510") %>% group_by(year) %>% summarize(total
 
 png(filename="plot2.png")
 with(totals, {
-  plot(year, total, type="l", xaxt="n", xlab="Year", ylab="Total PM2.5", lwd=2)
+  plot(year, total, type="l", xaxt="n", xlab="Year", ylab="Total PM2.5 (tons)", lwd=2)
   points(1999, total[1], col="red", pch=16)
   points(2002, total[2], col="blue", pch=16)
   points(2005, total[3], col="green", pch=16)
